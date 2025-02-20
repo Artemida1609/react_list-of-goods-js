@@ -23,17 +23,16 @@ const RESET = 'reset';
 export const App = () => {
   const [sortedGoods, setSortedGoods] = useState([...goodsFromServer]);
   const [buttonPressed, setButtonPressed] = useState(RESET);
-  const [ButtonReversed, setButtonReversed] = useState('');
+  const [buttonReversed, setButtonReversed] = useState('');
 
   const sortGoods = type => {
     const copy = [...sortedGoods];
 
     switch (type) {
       case SORT_ALPHABETICELY:
-        if (copy === goodsFromServer || ButtonReversed === SORT_REVERSED) {
-          copy.sort((good1, good2) => good2.localeCompare(good1));
-        } else {
-          copy.sort((good1, good2) => good2.localeCompare(good1)).reverse();
+        copy.sort((good1, good2) => good1.localeCompare(good2));
+        if (buttonReversed === SORT_REVERSED) {
+          copy.reverse();
         }
 
         break;
@@ -45,7 +44,7 @@ export const App = () => {
 
           return a.localeCompare(b);
         });
-        if (ButtonReversed === SORT_REVERSED) {
+        if (buttonReversed === SORT_REVERSED) {
           copy.reverse();
         }
 
@@ -67,9 +66,9 @@ export const App = () => {
       copy.reverse();
     }
 
-    if (ButtonReversed === '') {
+    if (buttonReversed === '') {
       setButtonReversed(type);
-    } else if (ButtonReversed === SORT_REVERSED) {
+    } else if (buttonReversed === SORT_REVERSED) {
       setButtonReversed('');
     }
 
@@ -118,7 +117,7 @@ export const App = () => {
         <button
           type="button"
           className={
-            ButtonReversed === SORT_REVERSED
+            buttonReversed === SORT_REVERSED
               ? 'button is-warning'
               : 'button is-warning is-light'
           }
@@ -129,7 +128,7 @@ export const App = () => {
           Reverse
         </button>
 
-        {buttonPressed === RESET && ButtonReversed === '' ? (
+        {buttonPressed === RESET && buttonReversed === '' ? (
           ''
         ) : (
           <button
