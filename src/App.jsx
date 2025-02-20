@@ -152,7 +152,7 @@ export const GoodList = ({ goods }) => {
   return (
     <ul>
       {goods.map(good => (
-        <li data-cy="Good">{good}</li>
+        <li key={good} data-cy="Good">{good}</li>
       ))}
     </ul>
   );
